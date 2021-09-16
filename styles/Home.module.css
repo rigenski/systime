@@ -12,6 +12,7 @@
 
 /* Card Component */
 .card {
+  width: 32rem;
   padding: 2rem;
   background-color: rgb(209, 213, 219);
   border-radius: 1rem;
@@ -20,11 +21,10 @@
 /* Card Header */
 .card__header {
   display: flex;
+  justify-content: space-between;
 }
 
 .link {
-  margin-left: 1rem;
-  margin-right: 1rem;
   padding-bottom: 0.125rem;
   font-size: 1.25rem;
   color: rgba(31, 41, 55, 60%);
@@ -34,12 +34,10 @@
 }
 
 .link__active {
-  margin-left: 1rem;
-  margin-right: 1rem;
   padding-bottom: 0.125rem;
   font-size: 1.25rem;
   color: rgba(17, 24, 39, 100%);
-  border-bottom: 0.125rem solid rgb(31, 41, 55);
+  border-bottom: 0.25rem solid rgb(31, 41, 55);
   font-weight: 600;
   text-transform: capitalize;
   cursor: pointer;
@@ -83,6 +81,7 @@
 .button__start {
   padding: 0.875rem 3rem;
   margin: 0 2rem;
+  font-family: 'Lexend', sans-serif;
   font-size: 1.25rem;
   color: #fff;
   background-color: rgb(59, 130, 246);
@@ -100,6 +99,7 @@
 .button__pause {
   padding: 0.875rem 3rem;
   margin: 0 2rem;
+  font-family: 'Lexend', sans-serif;
   font-size: 1.25rem;
   color: #fff;
   background-color: rgb(239, 68, 68);
@@ -127,58 +127,192 @@
   width: 2rem;
 }
 
-/* 
 .addon {
-  padding: 1rem 0.75rem;
-  margin-top: 1rem;
+  padding: 1.25rem;
+  margin-top: 2rem;
   background-color: rgb(31, 41, 55);
   border-radius: 0.5rem;
 }
 
-.addon h5 {
+.addon h4 {
+  text-align: center;
+  font-size: 1.25rem;
   color: #fff;
 }
 
 .addon__form {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.75rem;
-}
-
-.addon__input {
-  display: flex;
-  flex-direction: column;
-}
-
-.addon__input label {
-  width: 100%;
-  text-align: center;
-  color: #fff;
-  font-size: 0.75rem;
-}
-
-.addon__input input {
-  padding: 0.25rem 0.5rem;
-  margin-top: 0.25rem;
-  width: 4.4rem;
-  height: 1.25rem;
-  border: none;
-  border-radius: 0.125rem;
+  margin-top: 1.25rem;
 }
 
 .addon__action {
-  margin-top: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.25rem;
 }
 
-.addon__action button {
-  padding: 0.25rem 1rem;
-  font-size: 0.75rem;
-  color: #fff;
-  background-color: rgb(59, 130, 246);
+.button__minimize {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(75, 85, 99);
   border: none;
-  border-radius: 0.125rem;
-} */
+  border-radius: 0.25rem;
+  box-shadow: 0 0.25rem 0 rgb(55, 65, 81);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
 
-@media screen and (min-width: 768px) {
-  
+.button__minimize:hover {
+  box-shadow: 0 0.125rem 0 rgb(55, 65, 81);
+}
+
+.button__minimize svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.25rem;
+}
+
+.button__minimize svg path {
+  color: #fff;
+}
+
+.button__minimize span {
+  font-family: 'Lexend', sans-serif;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.button__background {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.5rem;
+  background-color: rgb(75, 85, 99);
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: 0 0.25rem 0 rgb(55, 65, 81);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.button__background:hover {
+  box-shadow: 0 0.125rem 0 rgb(55, 65, 81);
+}
+
+.button__background svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.25rem;
+}
+
+.button__background svg path {
+  color: #fff;
+}
+
+.button__background span {
+  font-family: 'Lexend', sans-serif;
+  color: #fff;
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 540px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .card {
+    width: 100%;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+  }
+
+  .link {
+    font-size: 1rem;
+  }
+
+  .link__active {
+    font-size: 1rem;
+  }
+
+  /* Card Body */
+  .card__body {
+    margin-top: 0.75rem;
+  }
+
+  .card__body h1 {
+    font-size: 4rem;
+  }
+
+  /* Card Footer */
+  .card__footer {
+    margin-top: 0.75rem;
+  }
+
+  .button__repeat svg {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  .button__start {
+    padding: 0.75rem 2.25rem;
+    margin: 0 1rem;
+    font-size: 1rem;
+  }
+
+  .button__pause {
+    padding: 0.75rem 2.25rem;
+    margin: 0 1rem;
+    font-size: 1rem;
+  }
+
+  .button__setting svg {
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
+  .addon {
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+
+  .addon h4 {
+    font-size: 1rem;
+  }
+
+  .addon__form {
+    margin-top: 1rem;
+  }
+
+  .addon__action {
+    margin-top: 1rem;
+  }
+
+  .button__minimize {
+    padding: 0.375rem 1.25rem;
+  }
+
+  .button__minimize svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .button__minimize span {
+    color: #fff;
+    font-size: 0.875rem;
+  }
+
+  .button__background {
+    padding: 0.375rem 1.25rem;
+  }
+
+  .button__background svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .button__background span {
+    color: #fff;
+    font-size: 0.875rem;
+  }
 }

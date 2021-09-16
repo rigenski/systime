@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
+import Input from '../components/Input';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
-  const timerTypes = [
-    {
-      name: 'pomodoro',
-      minutes: 25,
-      seconds: 0,
-    },
-    {
-      name: 'short break',
-      minutes: 5,
-      seconds: 0,
-    },
-    {
-      name: 'long break',
-      minutes: 15,
-      seconds: 0,
-    },
-  ];
+let timerTypes = [
+  {
+    name: 'pomodoro',
+    minutes: 25,
+    seconds: 0,
+  },
+  {
+    name: 'short break',
+    minutes: 5,
+    seconds: 0,
+  },
+  {
+    name: 'long break',
+    minutes: 15,
+    seconds: 0,
+  },
+];
 
-  // Init TimerType
+export default function Home() {
   const [timerType, setTimerType] = useState(timerTypes[0].name);
 
   const [minutes, setMinutes] = useState(0);
@@ -57,7 +57,11 @@ export default function Home() {
   };
 
   const onButtonSettingClick = () => {
-    setSetting(true);
+    if (setting) {
+      setSetting(false);
+    } else {
+      setSetting(true);
+    }
   };
 
   useEffect(() => {
@@ -170,33 +174,47 @@ export default function Home() {
                   </svg>
                 </button>
               </div>
+              {setting ? (
+                <div className={styles.addon}>
+                  <h4>Timer Setting</h4>
+                  <div className={styles.addon__form}>
+                    {timerTypes.map((item, index) => {
+                      return <Input key={index} data={item} />;
+                    })}
+                  </div>
+                  <div className={styles.addon__action}>
+                    <button className={styles.button__minimize}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
+                        <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
+                      </svg>
+                      <span>Minimize</span>
+                    </button>
+                    <button className={styles.button__background}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>Background</span>
+                    </button>
+                  </div>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
       </main>
     </>
   );
-}
-
-{
-  /* <div className={styles.addon}>
-  <h5>Timer Setting</h5>
-  <div className={styles.addon__form}>
-    <div className={styles.addon__input}>
-      <label htmlFor="pomodoro">Pomodoro</label>
-      <input type="text" id="pomodoro" />
-    </div>
-    <div className={styles.addon__input}>
-      <label htmlFor="short_break">Short Break</label>
-      <input type="text" id="short_break" />
-    </div>
-    <div className={styles.addon__input}>
-      <label htmlFor="long_break">Long Break</label>
-      <input type="text" id="long_break" />
-    </div>
-  </div>
-  <div className={styles.addon__action}>
-    <button>Minimize</button>
-  </div>
-</div>; */
 }

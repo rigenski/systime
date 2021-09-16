@@ -1,0 +1,33 @@
+.addon__input {
+  display: flex;
+  flex-direction: column;
+}
+
+.addon__input label {
+  text-align: center;
+  font-size: 1rem;
+  color: #fff;
+  text-transform: capitalize;
+}
+
+.addon__input input {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  width: 6rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.25rem;
+}
+
+@media screen and (max-width: 540px) {
+  .addon__input label {
+    font-size: 0.875rem;
+  }
+
+  .addon__input input {
+    width: 5rem;
+    font-size: 0.875rem;
+  }
+}
