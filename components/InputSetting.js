@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from '../styles/Input.module.css';
 
-const Input = (props) => {
+const InputSetting = (props) => {
   const [minutes, setMinutes] = useState(0);
 
   const onInputTimerChange = (e) => {
@@ -31,4 +31,4 @@ const Input = (props) => {
   );
 };
 
-export default Input;
+export default InputSetting;

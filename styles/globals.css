@@ -5,9 +5,9 @@ body {
 }
 
 body {
-  background-image: url(./../public/images/seattle-city-illustration.png);
+  background-image: url(./../public/images/caffe.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-position: center;
 }
 
 a {

@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import Input from '../components/Input';
+import InputSetting from '../components/InputSetting';
 import styles from '../styles/Home.module.css';
 
-let timerTypes = [
+const timerTypes = [
   {
     name: 'pomodoro',
     minutes: 25,
@@ -20,6 +20,33 @@ let timerTypes = [
   },
 ];
 
+const images = [
+  {
+    title: 'Cafe',
+    url: 'caffe.jpg',
+  },
+  {
+    title: 'Nature',
+    url: 'nature.jpg',
+  },
+  {
+    title: 'Beach',
+    url: 'beach.jpg',
+  },
+  {
+    title: 'City',
+    url: 'city.jpg',
+  },
+  {
+    title: 'Room',
+    url: 'room.jpg',
+  },
+  {
+    title: 'Office',
+    url: 'office.jpg',
+  },
+];
+
 export default function Home() {
   const [timerType, setTimerType] = useState(timerTypes[0].name);
 
@@ -28,6 +55,7 @@ export default function Home() {
   const [timer, setTimer] = useState(false);
   const [setting, setSetting] = useState(false);
   const [minimize, setMinimize] = useState(false);
+  const [background, setBackground] = useState(false);
 
   const initState = () => {
     for (let i = 0; i < timerTypes.length; i++) {
@@ -60,6 +88,9 @@ export default function Home() {
   const onButtonSettingClick = () => {
     if (setting) {
       setSetting(false);
+    } else if (!setting && background) {
+      setSetting(false);
+      setBackground(false);
     } else {
       setSetting(true);
     }
@@ -73,6 +104,22 @@ export default function Home() {
     }
 
     setSetting(false);
+  };
+
+  const onButtonBackgroundClick = () => {
+    if (background) {
+      setBackground(false);
+    } else {
+      setBackground(true);
+    }
+
+    setSetting(false);
+  };
+
+  const onCardImageClick = (url) => {
+    const body = document.querySelector('body');
+
+    body.style.backgroundImage = `url(./images/${url})`;
   };
 
   useEffect(() => {
@@ -249,7 +296,11 @@ export default function Home() {
                   >
                     {timerTypes.map((item, index) => {
                       return (
-                        <Input key={index} data={item} minimize={minimize} />
+                        <InputSetting
+                          key={index}
+                          data={item}
+                          minimize={minimize}
+                        />
                       );
                     })}
                   </div>
@@ -290,6 +341,7 @@ export default function Home() {
                             ' ' +
                             styles.button__background_small
                       }
+                      onClick={() => onButtonBackgroundClick()}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -304,6 +356,46 @@ export default function Home() {
                       </svg>
                       <span>Background</span>
                     </button>
+                  </div>
+                </div>
+              ) : background ? (
+                <div
+                  className={
+                    !minimize
+                      ? styles.addon
+                      : styles.addon + ' ' + styles.addon_small
+                  }
+                >
+                  <h4>Background</h4>
+                  <div
+                    className={
+                      !minimize
+                        ? styles.addon__gallery
+                        : styles.addon__gallery +
+                          ' ' +
+                          styles.addon__gallery_small
+                    }
+                  >
+                    {images.map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className={
+                            !minimize
+                              ? styles.addon__image
+                              : styles.addon__image +
+                                ' ' +
+                                styles.addon__image_small
+                          }
+                          onClick={() => onCardImageClick(item.url)}
+                        >
+                          <img
+                            src={`./images/${item.url}`}
+                            alt={`${item.title} Background`}
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               ) : null}
