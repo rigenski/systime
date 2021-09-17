@@ -1,0 +1,20 @@
+/* ----------------- Card Image ----------------- */
+
+.addon__image {
+  width: 33.3333%;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.addon__image div {
+  width: 100%;
+  border: 0.125rem solid rgba(255, 255, 255, 1);
+}
+
+.addon__image img {
+  object-fit: cover;
+}
+
+.addon__image_small div {
+  border: 0.125rem solid rgba(255, 255, 255, 0.8);
+}

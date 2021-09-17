@@ -1,16 +1,11 @@
-import { useEffect, useState } from 'react';
-import styles from '../styles/Input.module.css';
+import styles from '../styles/InputSetting.module.css';
 
 const InputSetting = (props) => {
-  const [minutes, setMinutes] = useState(0);
-
-  const onInputTimerChange = (e) => {
-    setMinutes(e.target.value);
+  const onInputTimerChange = (data) => {
+    if (data.value > 0 && data.value <= 60) {
+      props.onInputTimerChange(data);
+    }
   };
-
-  useEffect(() => {
-    setMinutes(props.data.minutes);
-  }, []);
 
   return (
     <div
@@ -24,8 +19,8 @@ const InputSetting = (props) => {
       <input
         type="number"
         id={props.data.name}
-        value={minutes}
-        onChange={(e) => onInputTimerChange(e)}
+        value={props.data.minutes}
+        onChange={(e) => onInputTimerChange(e.target)}
       />
     </div>
   );

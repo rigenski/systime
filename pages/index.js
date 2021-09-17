@@ -1,24 +1,7 @@
 import { useEffect, useState } from 'react';
+import CardImage from '../components/CardImage';
 import InputSetting from '../components/InputSetting';
 import styles from '../styles/Home.module.css';
-
-const timerTypes = [
-  {
-    name: 'pomodoro',
-    minutes: 25,
-    seconds: 0,
-  },
-  {
-    name: 'short break',
-    minutes: 5,
-    seconds: 0,
-  },
-  {
-    name: 'long break',
-    minutes: 15,
-    seconds: 0,
-  },
-];
 
 const images = [
   {
@@ -48,6 +31,24 @@ const images = [
 ];
 
 export default function Home() {
+  const [timerTypes, setTimerTypes] = useState([
+    {
+      name: 'pomodoro',
+      minutes: 25,
+      seconds: 0,
+    },
+    {
+      name: 'short break',
+      minutes: 5,
+      seconds: 0,
+    },
+    {
+      name: 'long break',
+      minutes: 15,
+      seconds: 0,
+    },
+  ]);
+
   const [timerType, setTimerType] = useState(timerTypes[0].name);
 
   const [minutes, setMinutes] = useState(0);
@@ -65,6 +66,18 @@ export default function Home() {
         setTimer(false);
       }
     }
+  };
+
+  const onInputTimerChange = (index, data) => {
+    let newTimerTypes = [...timerTypes];
+
+    newTimerTypes[index] = {
+      name: data.id,
+      minutes: data.value,
+      seconds: 0,
+    };
+
+    setTimerTypes(newTimerTypes);
   };
 
   const selectTimerType = (e) => {
@@ -146,7 +159,7 @@ export default function Home() {
 
   useEffect(() => {
     initState();
-  }, [timerType]);
+  }, [timerType, timerTypes]);
 
   return (
     <>
@@ -300,6 +313,9 @@ export default function Home() {
                           key={index}
                           data={item}
                           minimize={minimize}
+                          onInputTimerChange={(data) =>
+                            onInputTimerChange(index, data)
+                          }
                         />
                       );
                     })}
@@ -378,22 +394,12 @@ export default function Home() {
                   >
                     {images.map((item, index) => {
                       return (
-                        <div
+                        <CardImage
                           key={index}
-                          className={
-                            !minimize
-                              ? styles.addon__image
-                              : styles.addon__image +
-                                ' ' +
-                                styles.addon__image_small
-                          }
-                          onClick={() => onCardImageClick(item.url)}
-                        >
-                          <img
-                            src={`./images/${item.url}`}
-                            alt={`${item.title} Background`}
-                          />
-                        </div>
+                          data={item}
+                          minimize={minimize}
+                          onCardImageClick={(url) => onCardImageClick(url)}
+                        />
                       );
                     })}
                   </div>
@@ -403,6 +409,24 @@ export default function Home() {
           </div>
         </div>
       </main>
+      {/* <div className={styles.modal}>
+        <div class={styles.modal__item}>
+          <h4>Lorem ipsum dolor sit amet</h4>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+      <button className={styles.button_modal}>Task and Todo List</button> */}
     </>
   );
 }
