@@ -13,7 +13,13 @@ const Input = (props) => {
   }, []);
 
   return (
-    <div className={styles.addon__input}>
+    <div
+      className={
+        !props.minimize
+          ? styles.addon__input
+          : styles.addon__input + ' ' + styles.addon__input_small
+      }
+    >
       <label htmlFor={props.data.name}>{props.data.name}</label>
       <input
         type="number"

@@ -6,7 +6,7 @@
 .addon__input label {
   text-align: center;
   font-size: 1rem;
-  color: #fff;
+  color: rgb(255, 255, 255);
   text-transform: capitalize;
 }
 
@@ -19,6 +19,19 @@
   font-weight: 600;
   border: none;
   border-radius: 0.25rem;
+}
+
+/* ----------- MINIMIZE ----------- */
+
+.addon__input_small label {
+  font-size: 0.825rem;
+  color: rgba(255, 255, 255, 80%);
+}
+
+.addon__input_small input {
+  width: 5rem;
+  font-size: 0.875rem;
+  background-color: rgba(255, 255, 255, 80%);
 }
 
 @media screen and (max-width: 540px) {

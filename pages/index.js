@@ -27,6 +27,7 @@ export default function Home() {
   const [seconds, setSeconds] = useState(0);
   const [timer, setTimer] = useState(false);
   const [setting, setSetting] = useState(false);
+  const [minimize, setMinimize] = useState(false);
 
   const initState = () => {
     for (let i = 0; i < timerTypes.length; i++) {
@@ -64,6 +65,16 @@ export default function Home() {
     }
   };
 
+  const onButtonMinimizeClick = () => {
+    if (minimize) {
+      setMinimize(false);
+    } else {
+      setMinimize(true);
+    }
+
+    setSetting(false);
+  };
+
   useEffect(() => {
     if (timer === true) {
       let timerInterval = setInterval(() => {
@@ -93,8 +104,12 @@ export default function Home() {
   return (
     <>
       <main className={styles.main}>
-        <div className={styles.container}>
-          <div className={styles.card}>
+        <div className={!minimize ? styles.container : styles.container_small}>
+          <div
+            className={
+              !minimize ? styles.card : styles.card + ' ' + styles.card_small
+            }
+          >
             <div className={styles.card__header}>
               {!timerType
                 ? null
@@ -104,8 +119,14 @@ export default function Home() {
                         key={index}
                         className={
                           item.name === timerType
-                            ? styles.link__active
-                            : styles.link
+                            ? !minimize
+                              ? styles.link__active
+                              : styles.link__active +
+                                ' ' +
+                                styles.link__active_small
+                            : !minimize
+                            ? styles.link
+                            : styles.link + ' ' + styles.link_small
                         }
                         onClick={(e) => selectTimerType(e)}
                       >
@@ -114,7 +135,13 @@ export default function Home() {
                     );
                   })}
             </div>
-            <div className={styles.card__body}>
+            <div
+              className={
+                !minimize
+                  ? styles.card__body
+                  : styles.card__body + ' ' + styles.card__body_small
+              }
+            >
               {minutes === 0 && seconds === 0 ? (
                 <h1>00:00</h1>
               ) : (
@@ -124,10 +151,22 @@ export default function Home() {
                 </h1>
               )}
             </div>
-            <div className={styles.card__footer}>
+            <div
+              className={
+                !minimize
+                  ? styles.card__footer
+                  : styles.card__footer + ' ' + styles.card__footer_small
+              }
+            >
               <div className={styles.feature}>
                 <button
-                  className={styles.button__repeat}
+                  className={
+                    !minimize
+                      ? styles.button__repeat
+                      : styles.button__repeat +
+                        ' ' +
+                        styles.button__repeat_small
+                  }
                   onClick={() => onButtonRepeatClick()}
                 >
                   <svg
@@ -144,21 +183,39 @@ export default function Home() {
                 </button>
                 {timer ? (
                   <button
-                    className={styles.button__pause}
+                    className={
+                      !minimize
+                        ? styles.button__pause
+                        : styles.button__pause +
+                          ' ' +
+                          styles.button__pause_small
+                    }
                     onClick={() => onButtonPauseClick()}
                   >
                     Pause
                   </button>
                 ) : (
                   <button
-                    className={styles.button__start}
+                    className={
+                      !minimize
+                        ? styles.button__start
+                        : styles.button__start +
+                          ' ' +
+                          styles.button__start_small
+                    }
                     onClick={() => onButtonStartClick()}
                   >
                     Start
                   </button>
                 )}
                 <button
-                  className={styles.button__setting}
+                  className={
+                    !minimize
+                      ? styles.button__setting
+                      : styles.button__setting +
+                        ' ' +
+                        styles.button__setting_small
+                  }
                   onClick={() => onButtonSettingClick()}
                 >
                   <svg
@@ -175,15 +232,46 @@ export default function Home() {
                 </button>
               </div>
               {setting ? (
-                <div className={styles.addon}>
+                <div
+                  className={
+                    !minimize
+                      ? styles.addon
+                      : styles.addon + ' ' + styles.addon_small
+                  }
+                >
                   <h4>Timer Setting</h4>
-                  <div className={styles.addon__form}>
+                  <div
+                    className={
+                      !minimize
+                        ? styles.addon__form
+                        : styles.addon__form + ' ' + styles.addon__form_small
+                    }
+                  >
                     {timerTypes.map((item, index) => {
-                      return <Input key={index} data={item} />;
+                      return (
+                        <Input key={index} data={item} minimize={minimize} />
+                      );
                     })}
                   </div>
-                  <div className={styles.addon__action}>
-                    <button className={styles.button__minimize}>
+                  <div
+                    className={
+                      !minimize
+                        ? styles.addon__action
+                        : styles.addon__action +
+                          ' ' +
+                          styles.addon__action_small
+                    }
+                  >
+                    <button
+                      className={
+                        !minimize
+                          ? styles.button__minimize
+                          : styles.button__minimize +
+                            ' ' +
+                            styles.button__minimize_small
+                      }
+                      onClick={() => onButtonMinimizeClick()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
@@ -194,7 +282,15 @@ export default function Home() {
                       </svg>
                       <span>Minimize</span>
                     </button>
-                    <button className={styles.button__background}>
+                    <button
+                      className={
+                        !minimize
+                          ? styles.button__background
+                          : styles.button__background +
+                            ' ' +
+                            styles.button__background_small
+                      }
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 20 20"
