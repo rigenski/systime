@@ -150,7 +150,7 @@ export default function Home() {
     const newTodos = [...todos];
     newTodos.push(todo);
 
-    if (todos.length < 6) {
+    if (todos.length < 5) {
       localStorage.setItem('todos', JSON.stringify(newTodos));
     }
 
@@ -165,6 +165,14 @@ export default function Home() {
     localStorage.setItem('todos', JSON.stringify(newTodos));
 
     setTodos(newTodos);
+  };
+
+  const onTextTodoClick = (el) => {
+    if (el.style.textDecoration === '' || el.style.textDecoration === 'none') {
+      el.style.textDecoration = 'line-through';
+    } else {
+      el.style.textDecoration = 'none';
+    }
   };
 
   const onCardImageClick = (url) => {
@@ -460,7 +468,7 @@ export default function Home() {
           {todos.map((item, index) => {
             return (
               <div key={index} className={styles.modal__item}>
-                <h4>{item}</h4>
+                <h4 onClick={(e) => onTextTodoClick(e.target)}>{item}</h4>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   className="h-5 w-5"
@@ -506,7 +514,7 @@ export default function Home() {
 
       <button
         type="submit"
-        className={styles.button_modal}
+        className={styles.button__modal}
         onClick={() => onButtonModalClick()}
       >
         Task and Todo List

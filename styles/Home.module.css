@@ -243,8 +243,11 @@
 }
 
 .card_small {
+  left: 2rem;
+  top: 3rem;
+  position: absolute;
   width: 24rem;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   background-color: rgba(75, 55, 39, 0.6);
   border-radius: 0.75rem;
   box-shadow: none;
@@ -392,8 +395,8 @@
 /* -------------- MODAL --------------- */
 
 .modal {
-  left: 1rem;
-  bottom: 6.4rem;
+  left: 2rem;
+  bottom: 6rem;
   width: 24rem;
   position: absolute;
   padding: 1rem 2rem;
@@ -470,8 +473,8 @@
   color: rgba(255, 255, 255, 0.8);
 }
 
-.button_modal {
-  left: 1rem;
+.button__modal {
+  left: 2rem;
   bottom: 3rem;
   position: absolute;
   padding: 0.5rem 2rem;
@@ -485,7 +488,7 @@
   cursor: pointer;
 }
 
-.button_modal:hover {
+.button__modal:hover {
   box-shadow: 0 0.125rem 0 rgba(180, 83, 9, 0.8);
 }
 
@@ -593,8 +596,25 @@
     font-size: 0.875rem;
   }
 
+  /* Small */
+
+  .card_small {
+    top: 2rem;
+    left: 1rem;
+    position: fixed;
+    width: 92.4%;
+  }
+
   /* Modal */
   .modal {
+    left: 1rem;
+    bottom: 4.8rem;
+    position: fixed;
     width: 92.4%;
+  }
+
+  .button__modal {
+    left: 1rem;
+    bottom: 1.8rem;
   }
 }
