@@ -57,19 +57,22 @@ export default function Home() {
   const [setting, setSetting] = useState(false);
   const [minimize, setMinimize] = useState(false);
   const [background, setBackground] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [todo, setTodo] = useState('');
+  const [todos, setTodos] = useState([]);
 
   const initState = () => {
-    for (let i = 0; i < timerTypes.length; i++) {
-      if (timerType === timerTypes[i].name) {
-        setMinutes(timerTypes[i].minutes);
-        setSeconds(timerTypes[i].seconds);
+    timerTypes.map((item) => {
+      if (item.name === timerType) {
+        setMinutes(item.minutes);
+        setSeconds(item.seconds);
         setTimer(false);
       }
-    }
+    });
   };
 
   const onInputTimerChange = (index, data) => {
-    let newTimerTypes = [...timerTypes];
+    const newTimerTypes = [...timerTypes];
 
     newTimerTypes[index] = {
       name: data.id,
@@ -112,6 +115,7 @@ export default function Home() {
   const onButtonMinimizeClick = () => {
     if (minimize) {
       setMinimize(false);
+      setModal(false);
     } else {
       setMinimize(true);
     }
@@ -127,6 +131,40 @@ export default function Home() {
     }
 
     setSetting(false);
+  };
+
+  const onButtonModalClick = () => {
+    if (modal) {
+      setModal(false);
+    } else {
+      setModal(true);
+      setMinimize(true);
+    }
+  };
+
+  const onInputFormModalChange = (value) => {
+    setTodo(value);
+  };
+
+  const onButtonFormModalClick = () => {
+    const newTodos = [...todos];
+    newTodos.push(todo);
+
+    if (todos.length < 6) {
+      localStorage.setItem('todos', JSON.stringify(newTodos));
+    }
+
+    setTodo('');
+  };
+
+  const onIconRemoveTodoClick = (index) => {
+    const newTodos = [...todos];
+
+    newTodos.splice(index, 1);
+
+    localStorage.setItem('todos', JSON.stringify(newTodos));
+
+    setTodos(newTodos);
   };
 
   const onCardImageClick = (url) => {
@@ -160,6 +198,14 @@ export default function Home() {
   useEffect(() => {
     initState();
   }, [timerType, timerTypes]);
+
+  useEffect(() => {
+    if (!localStorage.getItem('todos')) {
+      localStorage.setItem('todos', '[]');
+    }
+
+    setTodos(JSON.parse(localStorage.getItem('todos')));
+  }, [todo]);
 
   return (
     <>
@@ -409,24 +455,62 @@ export default function Home() {
           </div>
         </div>
       </main>
-      {/* <div className={styles.modal}>
-        <div class={styles.modal__item}>
-          <h4>Lorem ipsum dolor sit amet</h4>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+      {modal ? (
+        <div className={styles.modal}>
+          {todos.map((item, index) => {
+            return (
+              <div key={index} className={styles.modal__item}>
+                <h4>{item}</h4>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                  onClick={() => onIconRemoveTodoClick(index)}
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clipRule="evenodd"
+                  />
+                </svg>
+              </div>
+            );
+          })}
+
+          <form
+            className={styles.modal__form}
+            onSubmit={(e) => e.preventDefault()}
           >
-            <path
-              fillRule="evenodd"
-              d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-              clipRule="evenodd"
+            <input
+              type="text"
+              value={todo}
+              onChange={(e) => onInputFormModalChange(e.target.value)}
             />
-          </svg>
+            <button onClick={() => onButtonFormModalClick()}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </form>
         </div>
-      </div>
-      <button className={styles.button_modal}>Task and Todo List</button> */}
+      ) : null}
+
+      <button
+        type="submit"
+        className={styles.button_modal}
+        onClick={() => onButtonModalClick()}
+      >
+        Task and Todo List
+      </button>
     </>
   );
 }
