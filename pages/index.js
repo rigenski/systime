@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import CardImage from '../components/CardImage';
-import InputSetting from '../components/InputSetting';
-import styles from '../styles/Home.module.css';
+import Image from 'next/image';
+import styles from '../styles/app.module.css';
 
 const images = [
   {
@@ -74,13 +73,15 @@ export default function Home() {
   const onInputTimerChange = (index, data) => {
     const newTimerTypes = [...timerTypes];
 
-    newTimerTypes[index] = {
-      name: data.id,
-      minutes: data.value,
-      seconds: 0,
-    };
+    if (data.value > 0 && data.value <= 60) {
+      newTimerTypes[index] = {
+        name: data.id,
+        minutes: data.value,
+        seconds: 0,
+      };
 
-    setTimerTypes(newTimerTypes);
+      setTimerTypes(newTimerTypes);
+    }
   };
 
   const selectTimerType = (e) => {
@@ -363,14 +364,26 @@ export default function Home() {
                   >
                     {timerTypes.map((item, index) => {
                       return (
-                        <InputSetting
+                        <div
                           key={index}
-                          data={item}
-                          minimize={minimize}
-                          onInputTimerChange={(data) =>
-                            onInputTimerChange(index, data)
+                          className={
+                            !minimize
+                              ? styles.addon__input
+                              : styles.addon__input +
+                                ' ' +
+                                styles.addon__input_small
                           }
-                        />
+                        >
+                          <label htmlFor={item.name}>{item.name}</label>
+                          <input
+                            type="number"
+                            id={item.name}
+                            value={item.minutes}
+                            onChange={(e) =>
+                              onInputTimerChange(index, e.target)
+                            }
+                          />
+                        </div>
                       );
                     })}
                   </div>
@@ -401,7 +414,7 @@ export default function Home() {
                         <path d="M7 9a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H9a2 2 0 01-2-2V9z" />
                         <path d="M5 3a2 2 0 00-2 2v6a2 2 0 002 2V5h8a2 2 0 00-2-2H5z" />
                       </svg>
-                      <span>Minimize</span>
+                      <span>{minimize ? 'Maximize' : 'Minimize'}</span>
                     </button>
                     <button
                       className={
@@ -448,12 +461,24 @@ export default function Home() {
                   >
                     {images.map((item, index) => {
                       return (
-                        <CardImage
+                        <div
                           key={index}
-                          data={item}
-                          minimize={minimize}
-                          onCardImageClick={(url) => onCardImageClick(url)}
-                        />
+                          className={
+                            !minimize
+                              ? styles.addon__image
+                              : styles.addon__image +
+                                ' ' +
+                                styles.addon__image_small
+                          }
+                          onClick={() => onCardImageClick(item.url)}
+                        >
+                          <Image
+                            src={`/images/${item.url}`}
+                            height={212}
+                            width={320}
+                            alt={`${item.title} Background`}
+                          />
+                        </div>
                       );
                     })}
                   </div>

@@ -164,6 +164,29 @@
   margin-top: 1.25rem;
 }
 
+.addon__input {
+  display: flex;
+  flex-direction: column;
+}
+
+.addon__input label {
+  text-align: center;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
+}
+
+.addon__input input {
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  width: 6rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.25rem;
+}
+
 .button__minimize {
   display: flex;
   align-items: center;
@@ -224,6 +247,25 @@
   font-family: 'Lexend', sans-serif;
   color: rgb(255, 255, 255);
   font-size: 1rem;
+}
+
+.addon__image {
+  width: 33.3333%;
+  padding: 0.25rem;
+  cursor: pointer;
+}
+
+.addon__image div {
+  width: 100%;
+  border: 0.125rem solid rgba(255, 255, 255, 1);
+}
+
+.addon__image img {
+  object-fit: cover;
+}
+
+.addon__image_small div {
+  border: 0.125rem solid rgba(255, 255, 255, 0.8);
 }
 
 /* addon background */
@@ -342,6 +384,17 @@
 
 .addon__action_small {
   margin-top: 1rem;
+}
+
+.addon__input_small label {
+  font-size: 0.825rem;
+  color: rgba(255, 255, 255, 80%);
+}
+
+.addon__input_small input {
+  width: 5rem;
+  font-size: 0.875rem;
+  background-color: rgba(255, 255, 255, 80%);
 }
 
 .button__minimize_small {
@@ -568,6 +621,15 @@
 
   .addon__action {
     margin-top: 1rem;
+  }
+
+  .addon__input label {
+    font-size: 0.875rem;
+  }
+
+  .addon__input input {
+    width: 5rem;
+    font-size: 0.875rem;
   }
 
   .button__minimize {
